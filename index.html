@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>우리 반 자리 뽑기 🎲</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header & Controls Bar -->
+    <header class="header">
+      <div class="title-area">
+        <span class="icon">🏫</span>
+        <h1>우리 반 자리 뽑기</h1>
+        <span class="badge">4분단 × 6줄 (총 24석)</span>
+      </div>
+
+      <div class="controls-panel">
+        <div class="input-group">
+          <label for="studentCount">학생 수</label>
+          <div class="number-stepper">
+            <button type="button" id="btnMinus" aria-label="1명 감소">-</button>
+            <input type="number" id="studentCount" min="1" max="24" value="24">
+            <button type="button" id="btnPlus" aria-label="1명 증가">+</button>
+          </div>
+          <span class="unit">명</span>
+        </div>
+
+        <div class="options-group">
+          <label class="toggle-label" title="두근두근 하나씩 순차 공개">
+            <input type="checkbox" id="sequentialToggle" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">두근두근 순차 공개</span>
+          </label>
+
+          <label class="toggle-label" title="효과음 켜기/끄기">
+            <input type="checkbox" id="soundToggle" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">🔊 효과음</span>
+          </label>
+        </div>
+
+        <div class="action-buttons">
+          <button id="btnDraw" class="btn btn-primary pulse-btn">
+            <span class="btn-icon" id="btnDrawIcon">🎲</span>
+            <span class="btn-label" id="btnDrawLabel">자리 뽑기 시작!</span>
+          </button>
+          <button id="btnPrint" class="btn btn-ghost" title="배치표 인쇄">
+            <span>🖨️ 인쇄</span>
+          </button>
+          <button id="btnFullscreen" class="btn btn-ghost" title="전체화면 전환">
+            <span id="fullscreenIcon">⛶</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Classroom Board -->
+    <main class="classroom-stage">
+      <!-- Blackboard / Front area -->
+      <div class="blackboard-wrapper">
+        <div class="blackboard">
+          <div class="chalk-text">
+            <span>📗 칠 판 (교탁 앞) 📗</span>
+          </div>
+        </div>
+        <div class="teacher-desk">교 탁</div>
+      </div>
+
+      <!-- Seat Grid Area -->
+      <div class="seating-area" id="seatingArea">
+        <!-- 4 분단 Columns -->
+        <div class="boudan-column" data-boudan="1">
+          <div class="boudan-header">1 분단</div>
+          <div class="seat-list" id="col1"></div>
+        </div>
+
+        <div class="aisle"><span class="aisle-line"></span><span class="aisle-label">통로</span><span class="aisle-line"></span></div>
+
+        <div class="boudan-column" data-boudan="2">
+          <div class="boudan-header">2 분단</div>
+          <div class="seat-list" id="col2"></div>
+        </div>
+
+        <div class="aisle"><span class="aisle-line"></span><span class="aisle-label">중앙 통로</span><span class="aisle-line"></span></div>
+
+        <div class="boudan-column" data-boudan="3">
+          <div class="boudan-header">3 분단</div>
+          <div class="seat-list" id="col3"></div>
+        </div>
+
+        <div class="aisle"><span class="aisle-line"></span><span class="aisle-label">통로</span><span class="aisle-line"></span></div>
+
+        <div class="boudan-column" data-boudan="4">
+          <div class="boudan-header">4 분단</div>
+          <div class="seat-list" id="col4"></div>
+        </div>
+      </div>
+
+      <!-- Classroom Back Indicator -->
+      <div class="back-indicator">
+        <span>🚪 교실 뒷문 (뒤쪽) 🚪</span>
+      </div>
+    </main>
+
+    <!-- Status Toast / Live Announcer -->
+    <div id="liveStatus" class="live-status" aria-live="polite">
+      학생 수를 확인하고 <strong>'자리 뽑기 시작!'</strong> 버튼을 눌러주세요.
+    </div>
+
+    <!-- Fireworks / Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
